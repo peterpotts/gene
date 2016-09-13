@@ -72,4 +72,8 @@ object AminoAcid extends Enumeration[AminoAcid] {
     Valine,
     Tryptophan,
     Tyrosine)
+
+  private val map = indexedSeq.map(aminoAcid => aminoAcid.code -> aminoAcid).toMap
+
+  def apply(code: Char) = map(code)
 }
