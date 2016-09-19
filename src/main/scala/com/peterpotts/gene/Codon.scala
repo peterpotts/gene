@@ -3,18 +3,18 @@ package com.peterpotts.gene
 import scala.collection.immutable.Seq
 
 case class Codon(
-  first: Nucleotide,
-  second: Nucleotide,
-  third: Nucleotide) {
+  first: Nucleobase,
+  second: Nucleobase,
+  third: Nucleobase) {
   val toSeq = Seq(first, second, third)
 }
 
 object Codon {
   def apply(sequence: String): Codon = {
     Codon(
-      first = Nucleotide(sequence.charAt(0)),
-      second = Nucleotide(sequence.charAt(1)),
-      third = Nucleotide(sequence.charAt(2)))
+      first = Nucleobase(sequence.charAt(0)),
+      second = Nucleobase(sequence.charAt(1)),
+      third = Nucleobase(sequence.charAt(2)))
   }
 }
 
