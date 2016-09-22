@@ -9,16 +9,20 @@ case class Codon(
   val toSeq = Seq(first, second, third)
 }
 
-object Codon {
+object RNACodon {
   def apply(sequence: String): Codon = {
     Codon(
-      first = Nucleotide(sequence.charAt(0)),
-      second = Nucleotide(sequence.charAt(1)),
-      third = Nucleotide(sequence.charAt(2)))
+      first = Ribonucleotide(sequence.charAt(0)),
+      second = Ribonucleotide(sequence.charAt(1)),
+      third = Ribonucleotide(sequence.charAt(2)))
   }
 }
 
-/**
-  * START	ATG
-  * STOP	TAA, TGA, TAG (Ochre, Opal, Amber)
-  */
+object DNACodon {
+  def apply(sequence: String): Codon = {
+    Codon(
+      first = Deoxyribonucleotide(sequence.charAt(0)),
+      second = Deoxyribonucleotide(sequence.charAt(1)),
+      third = Deoxyribonucleotide(sequence.charAt(2)))
+  }
+}

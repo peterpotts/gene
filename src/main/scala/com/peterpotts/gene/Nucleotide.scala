@@ -22,7 +22,20 @@ case object Thymine extends Nucleotide('T') with Pyrimidine with Deoxyribose
 
 case object Uracil extends Nucleotide('U') with Pyrimidine with Ribose
 
-object Nucleotide {
-  val deoxyribose = Seq[Nucleotide with Deoxyribose](Adenine, Cytosine, Guanine, Thymine)
-  val ribose = Seq[Nucleotide with Ribose](Adenine, Cytosine, Guanine, Uracil)
+object Ribonucleotide {
+  val seq = Seq[Nucleotide with Ribose](Adenine, Cytosine, Guanine, Uracil)
+  private val map = seq.map(nucleotide => nucleotide.symbol -> nucleotide).toMap
+
+  def apply(symbol: Char) = map(symbol)
+
+  def get(symbol: Char) = map.get(symbol)
+}
+
+object Deoxyribonucleotide {
+  val seq = Seq[Nucleotide with Deoxyribose](Adenine, Cytosine, Guanine, Thymine)
+  private val map = seq.map(nucleotide => nucleotide.symbol -> nucleotide).toMap
+
+  def apply(symbol: Char) = map(symbol)
+
+  def get(symbol: Char) = map.get(symbol)
 }
