@@ -16,7 +16,6 @@ case object Opal extends Stop
 
 object Stop {
   val seq = Seq(Ochre, Amber, Opal)
-
   private val map = seq.map(stop => stop.toString -> stop).toMap
 
   def apply(code: String) = map(code)

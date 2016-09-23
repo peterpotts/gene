@@ -83,8 +83,7 @@ object StandardGeneticCode extends Translation {
     "GGG" -> "Gly")
 
   private val map = data.map {
-    case (key, value) =>
-      RNACodon(key) -> AminoAcid.get(value).map(Right(_)).getOrElse(Left(Stop(value)))
+    case (key, value) => RNACodon(key) -> AminoAcid.get(value).map(Right(_)).getOrElse(Left(Stop(value)))
   }
 
   def apply(codon: Codon): Either[Signal, AminoAcid] = map(codon)
