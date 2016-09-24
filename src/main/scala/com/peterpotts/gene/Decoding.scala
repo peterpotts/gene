@@ -9,7 +9,7 @@ sealed trait Decoding
 trait Transcription extends Decoding
 
 /**
-  * Messenger RNA is translated into protein according to the genetic code.
+  * Messenger RNA is translated into protein by ribosomes according to the genetic code.
   */
 trait Translation extends Decoding {
   def apply(codon: Codon): Either[Signal, AminoAcid]
