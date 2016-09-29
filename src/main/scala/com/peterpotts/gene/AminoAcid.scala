@@ -4,45 +4,45 @@ import scala.collection.immutable.Seq
 
 sealed abstract class AminoAcid(val code: String, val symbol: Char)
 
-case object Alanine extends AminoAcid("Ala", 'A')
+case object Alanine extends AminoAcid("Ala", 'A') with AminoAcid.Nonpolar
 
-case object Arginine extends AminoAcid("Arg", 'R')
+case object Arginine extends AminoAcid("Arg", 'R') with AminoAcid.Basic
 
-case object Asparagine extends AminoAcid("Asn", 'N')
+case object Asparagine extends AminoAcid("Asn", 'N') with AminoAcid.AmidePolar
 
-case object AsparticAcid extends AminoAcid("Asp", 'D')
+case object AsparticAcid extends AminoAcid("Asp", 'D') with AminoAcid.Acidic
 
-case object Cysteine extends AminoAcid("Cys", 'C')
+case object Cysteine extends AminoAcid("Cys", 'C') with AminoAcid.DisulfideNonpolar
 
-case object Glutamine extends AminoAcid("Gln", 'Q')
+case object Glutamine extends AminoAcid("Gln", 'Q') with AminoAcid.AmidePolar
 
-case object GlutamicAcid extends AminoAcid("Glu", 'E')
+case object GlutamicAcid extends AminoAcid("Glu", 'E') with AminoAcid.Acidic
 
-case object Glycine extends AminoAcid("Gly", 'G')
+case object Glycine extends AminoAcid("Gly", 'G') with AminoAcid.HydrogenNonpolar
 
-case object Histidine extends AminoAcid("His", 'H')
+case object Histidine extends AminoAcid("His", 'H') with AminoAcid.Basic
 
-case object Isoleucine extends AminoAcid("Ile", 'I')
+case object Isoleucine extends AminoAcid("Ile", 'I') with AminoAcid.Nonpolar
 
-case object Leucine extends AminoAcid("Leu", 'L')
+case object Leucine extends AminoAcid("Leu", 'L') with AminoAcid.Nonpolar
 
-case object Lysine extends AminoAcid("Lys", 'K')
+case object Lysine extends AminoAcid("Lys", 'K') with AminoAcid.Basic
 
-case object Methionine extends AminoAcid("Met", 'M')
+case object Methionine extends AminoAcid("Met", 'M') with AminoAcid.Nonpolar
 
-case object Phenylalanine extends AminoAcid("Phe", 'F')
+case object Phenylalanine extends AminoAcid("Phe", 'F') with AminoAcid.Nonpolar
 
-case object Proline extends AminoAcid("Pro", 'P')
+case object Proline extends AminoAcid("Pro", 'P') with AminoAcid.NitrogenNonpolar
 
-case object Serine extends AminoAcid("Ser", 'S')
+case object Serine extends AminoAcid("Ser", 'S') with AminoAcid.HydroxyPolar
 
-case object Threonine extends AminoAcid("Thr", 'T')
+case object Threonine extends AminoAcid("Thr", 'T') with AminoAcid.HydroxyPolar
 
-case object Tryptophan extends AminoAcid("Trp", 'W')
+case object Tryptophan extends AminoAcid("Trp", 'W') with AminoAcid.Nonpolar
 
-case object Tyrosine extends AminoAcid("Tyr", 'Y')
+case object Tyrosine extends AminoAcid("Tyr", 'Y') with AminoAcid.HydroxyPolar
 
-case object Valine extends AminoAcid("Val", 'V')
+case object Valine extends AminoAcid("Val", 'V') with AminoAcid.Nonpolar
 
 case object Selenocysteine extends AminoAcid("Sec", 'U')
 
@@ -84,4 +84,39 @@ object AminoAcid {
   def apply(symbol: Char) = symbolToAminoAcid(symbol)
 
   def get(symbol: Char) = symbolToAminoAcid.get(symbol)
+
+  /**
+    * Hydrophobic means does not like water.
+    */
+  trait Hydrophobic
+
+  /**
+    * Hydrophilic means does like water.
+    */
+  trait Hydrophilic
+
+  trait Charged extends Hydrophilic
+
+  trait PositivelyCharged extends Charged
+
+  trait NegativelyCharged extends Charged
+
+  trait Nonpolar extends Hydrophobic
+
+  trait HydrogenNonpolar extends Nonpolar
+
+  trait NitrogenNonpolar extends Nonpolar
+
+  trait DisulfideNonpolar extends Nonpolar
+
+  trait Polar extends Hydrophilic
+
+  trait AmidePolar extends Polar
+
+  trait HydroxyPolar extends Polar
+
+  trait Acidic extends NegativelyCharged
+
+  trait Basic extends PositivelyCharged
+
 }
