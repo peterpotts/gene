@@ -31,6 +31,10 @@ object Ribonucleotide {
   def get(symbol: Char) = map.get(symbol)
 }
 
+object Ribonucleotides {
+  def apply(symbols: String): Seq[Nucleotide with Ribose] = symbols.map(Ribonucleotide(_))
+}
+
 object Deoxyribonucleotide {
   val seq = Seq[Nucleotide with Deoxyribose](Adenine, Cytosine, Guanine, Thymine)
   private val map = seq.map(nucleotide => nucleotide.symbol -> nucleotide).toMap
@@ -38,4 +42,8 @@ object Deoxyribonucleotide {
   def apply(symbol: Char) = map(symbol)
 
   def get(symbol: Char) = map.get(symbol)
+}
+
+object Deoxyribonucleotides {
+  def apply(symbols: String): Seq[Nucleotide with Deoxyribose] = symbols.map(Deoxyribonucleotide(_))
 }
