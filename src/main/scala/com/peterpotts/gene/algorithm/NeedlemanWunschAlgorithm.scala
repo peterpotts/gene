@@ -7,13 +7,13 @@ case class NeedlemanWunschAlgorithm(similarity: Char => Char => Int, gapPenalty:
   private val d = gapPenalty
 
   def align(sequences: (String, String)): (String, String) = {
-    val a: IndexedSeq[Char] = sequences._1
-    val b: IndexedSeq[Char] = sequences._2
+    val a = sequences._1.toArray
+    val b = sequences._2.toArray
     val table = computeTable(a, b)
     computeAlignment(a, b, table)
   }
 
-  private def computeTable(a: IndexedSeq[Char], b: IndexedSeq[Char]): Array[Array[Int]] = {
+  private def computeTable(a: Array[Char], b: Array[Char]): Array[Array[Int]] = {
     val table = Array.fill(a.length + 1)(Array.fill(b.length + 1)(0))
 
     for (i <- 0 to a.length)
@@ -33,7 +33,7 @@ case class NeedlemanWunschAlgorithm(similarity: Char => Char => Int, gapPenalty:
     table
   }
 
-  private def computeAlignment(a: IndexedSeq[Char], b: IndexedSeq[Char], table: Array[Array[Int]]): (String, String) = {
+  private def computeAlignment(a: Array[Char], b: Array[Char], table: Array[Array[Int]]): (String, String) = {
     val alignmentA = mutable.StringBuilder.newBuilder
     val alignmentB = mutable.StringBuilder.newBuilder
     var i = a.length
