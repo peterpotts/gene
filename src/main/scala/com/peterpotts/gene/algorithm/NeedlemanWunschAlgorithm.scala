@@ -59,3 +59,7 @@ case class NeedlemanWunschAlgorithm(similarity: Char => Char => Int, gapPenalty:
     alignmentA.reverse.toString -> alignmentB.reverse.toString
   }
 }
+
+object NeedlemanWunschAlgorithm extends NeedlemanWunschAlgorithm(
+  similarity = (a: Char) => (b: Char) => if (a == b) 1 else -1,
+  gapPenalty = -1)
