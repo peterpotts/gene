@@ -26,4 +26,3 @@ class NeedlemanWunschAlgorithmTest extends WordSpec with Matchers with MockitoSu
     }
   }
 }
-
