@@ -1,8 +1,6 @@
 package com.peterpotts.gene
 
-import scala.collection.immutable.Seq
-
-sealed abstract class Deoxyribonucleotides(val symbol: Char, deoxyribonucleotides: Seq[Deoxyribonucleotide])
+sealed abstract class Deoxyribonucleotides(val symbol: Char, deoxyribonucleotides: List[Deoxyribonucleotide])
 
 object Deoxyribonucleotides {
 
@@ -26,17 +24,17 @@ object Deoxyribonucleotides {
 
   case object B extends Deoxyribonucleotides('B', Deoxyribonucleotides("CGT"))
 
-  case object N extends Deoxyribonucleotides('N', Deoxyribonucleotide.seq)
+  case object N extends Deoxyribonucleotides('N', Deoxyribonucleotide.list)
 
-  case object X extends Deoxyribonucleotides('X', Deoxyribonucleotide.seq)
+  case object X extends Deoxyribonucleotides('X', Deoxyribonucleotide.list)
 
-  val seq = Seq[Deoxyribonucleotides](M, R, W, S, Y, K, V, H, D, B, N, X)
+  val list: List[Deoxyribonucleotides] = List(M, R, W, S, Y, K, V, H, D, B, N, X)
 
-  private val map = seq.map(uncertainty => uncertainty.symbol -> uncertainty).toMap
+  private val map = list.map(uncertainty => uncertainty.symbol -> uncertainty).toMap
 
-  def apply(symbol: Char) = map(symbol)
+  def apply(symbol: Char): Deoxyribonucleotides = map(symbol)
 
-  def get(symbol: Char) = map.get(symbol)
+  def get(symbol: Char): Option[Deoxyribonucleotides] = map.get(symbol)
 
-  def apply(symbols: String): Seq[Deoxyribonucleotide] = symbols.map(Deoxyribonucleotide(_))
+  def apply(symbols: String): List[Deoxyribonucleotide] = symbols.map(Deoxyribonucleotide(_)).toList
 }

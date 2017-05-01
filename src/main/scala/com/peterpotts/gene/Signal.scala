@@ -1,7 +1,5 @@
 package com.peterpotts.gene
 
-import scala.collection.immutable.Seq
-
 sealed trait Signal
 
 case object Start extends Signal
@@ -15,8 +13,8 @@ case object Amber extends Stop
 case object Opal extends Stop
 
 object Stop {
-  val seq = Seq(Ochre, Amber, Opal)
-  private val map = seq.map(stop => stop.toString -> stop).toMap
+  val list = List(Ochre, Amber, Opal)
+  private val map = list.map(stop => stop.toString -> stop).toMap
 
-  def apply(code: String) = map(code)
+  def apply(code: String): Stop = map(code)
 }

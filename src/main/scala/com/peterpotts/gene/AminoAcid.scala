@@ -1,8 +1,6 @@
 package com.peterpotts.gene
 
-import scala.collection.immutable.Seq
-
-sealed abstract class AminoAcid(val code: String, val symbol: Char)
+sealed abstract class AminoAcid(val code: String, val symbol: Char) extends Serializable
 
 case object Alanine extends AminoAcid("Ala", 'A') with AminoAcid.Nonpolar
 
@@ -49,7 +47,7 @@ case object Selenocysteine extends AminoAcid("Sec", 'U')
 case object Pyrrolysine extends AminoAcid("Pyl", 'O')
 
 object AminoAcid {
-  val seq = Seq(
+  val list = List(
     Alanine,
     Arginine,
     Asparagine,
@@ -73,17 +71,17 @@ object AminoAcid {
     Selenocysteine,
     Pyrrolysine)
 
-  private val codeToAminoAcid = seq.map(aminoAcid => aminoAcid.code -> aminoAcid).toMap
+  private val codeToAminoAcid = list.map(aminoAcid => aminoAcid.code -> aminoAcid).toMap
 
-  def apply(code: String) = codeToAminoAcid(code)
+  def apply(code: String): AminoAcid = codeToAminoAcid(code)
 
-  def get(code: String) = codeToAminoAcid.get(code)
+  def get(code: String): Option[AminoAcid] = codeToAminoAcid.get(code)
 
-  private val symbolToAminoAcid = seq.map(aminoAcid => aminoAcid.symbol -> aminoAcid).toMap
+  private val symbolToAminoAcid = list.map(aminoAcid => aminoAcid.symbol -> aminoAcid).toMap
 
-  def apply(symbol: Char) = symbolToAminoAcid(symbol)
+  def apply(symbol: Char): AminoAcid = symbolToAminoAcid(symbol)
 
-  def get(symbol: Char) = symbolToAminoAcid.get(symbol)
+  def get(symbol: Char): Option[AminoAcid] = symbolToAminoAcid.get(symbol)
 
   /**
     * Hydrophobic means does not like water.

@@ -1,7 +1,5 @@
 package com.peterpotts.gene
 
-import scala.collection.immutable.Seq
-
 sealed abstract class Nucleotide(val symbol: Char)
 
 sealed trait Purine
@@ -23,23 +21,23 @@ case object Thymine extends Nucleotide('T') with Pyrimidine with Deoxyribose
 case object Uracil extends Nucleotide('U') with Pyrimidine with Ribose
 
 object Ribonucleotide {
-  val seq = Seq[Ribonucleotide](Adenine, Cytosine, Guanine, Uracil)
-  private val map = seq.map(nucleotide => nucleotide.symbol -> nucleotide).toMap
+  val list: List[Ribonucleotide] = List(Adenine, Cytosine, Guanine, Uracil)
+  private val map = list.map(nucleotide => nucleotide.symbol -> nucleotide).toMap
 
-  def apply(symbol: Char) = map(symbol)
+  def apply(symbol: Char): Ribonucleotide = map(symbol)
 
-  def get(symbol: Char) = map.get(symbol)
+  def get(symbol: Char): Option[Ribonucleotide] = map.get(symbol)
 }
 
 object Ribonucleotides {
-  def apply(symbols: String): Seq[Ribonucleotide] = symbols.map(Ribonucleotide(_))
+  def apply(symbols: String): List[Ribonucleotide] = symbols.map(Ribonucleotide(_)).toList
 }
 
 object Deoxyribonucleotide {
-  val seq = Seq[Deoxyribonucleotide](Adenine, Cytosine, Guanine, Thymine)
-  private val map = seq.map(nucleotide => nucleotide.symbol -> nucleotide).toMap
+  val list: List[Deoxyribonucleotide] = List(Adenine, Cytosine, Guanine, Thymine)
+  private val map = list.map(nucleotide => nucleotide.symbol -> nucleotide).toMap
 
-  def apply(symbol: Char) = map(symbol)
+  def apply(symbol: Char): Deoxyribonucleotide = map(symbol)
 
-  def get(symbol: Char) = map.get(symbol)
+  def get(symbol: Char): Option[Deoxyribonucleotide] = map.get(symbol)
 }

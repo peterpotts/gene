@@ -1,12 +1,10 @@
 package com.peterpotts.gene
 
-import scala.collection.immutable.Seq
-
 case class Codon(
   first: Nucleotide,
   second: Nucleotide,
   third: Nucleotide) {
-  val toSeq = Seq(first, second, third)
+  val toList = List(first, second, third)
 }
 
 object RNACodon {

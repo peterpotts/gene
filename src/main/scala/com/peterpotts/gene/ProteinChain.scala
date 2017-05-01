@@ -1,7 +1,5 @@
 package com.peterpotts.gene
 
-import scala.collection.immutable.Seq
-
 /**
   * A protein chain has a primary structure formed by a sequence of amino acids.
   * The secondary structure is the generic structures formed by parts of the protein chain.
@@ -9,10 +7,10 @@ import scala.collection.immutable.Seq
   *
   * @param primaryStructure Sequence of amino acids.
   */
-case class ProteinChain(primaryStructure: Seq[AminoAcid])
+case class ProteinChain(primaryStructure: List[AminoAcid])
 
 object ProteinChain {
-  def apply(symbols: String): ProteinChain = ProteinChain(symbols.toStream.map(AminoAcid(_)))
+  def apply(symbols: String): ProteinChain = ProteinChain(symbols.toStream.map(AminoAcid(_)).toList)
 }
 
 /**
@@ -25,4 +23,4 @@ object ProteinChain {
   *
   * @param proteinChains Some proteins contain multiple protein chains.
   */
-case class Protein(proteinChains: Seq[ProteinChain])
+case class Protein(proteinChains: List[ProteinChain])
