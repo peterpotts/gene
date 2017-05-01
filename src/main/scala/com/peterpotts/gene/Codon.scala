@@ -1,9 +1,9 @@
 package com.peterpotts.gene
 
 case class Codon(
-  first: Nucleotide,
-  second: Nucleotide,
-  third: Nucleotide) {
+  first: Nucleobase,
+  second: Nucleobase,
+  third: Nucleobase) {
   val toList = List(first, second, third)
 }
 

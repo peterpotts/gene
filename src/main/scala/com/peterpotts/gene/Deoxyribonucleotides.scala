@@ -1,6 +1,6 @@
 package com.peterpotts.gene
 
-sealed abstract class Deoxyribonucleotides(val symbol: Char, deoxyribonucleotides: List[Deoxyribonucleotide])
+sealed abstract class Deoxyribonucleotides(val symbol: Char, deoxyribonucleotides: List[Deoxyribonucleoside])
 
 object Deoxyribonucleotides {
 
@@ -36,5 +36,5 @@ object Deoxyribonucleotides {
 
   def get(symbol: Char): Option[Deoxyribonucleotides] = map.get(symbol)
 
-  def apply(symbols: String): List[Deoxyribonucleotide] = symbols.map(Deoxyribonucleotide(_)).toList
+  def apply(symbols: String): List[Deoxyribonucleoside] = symbols.map(Deoxyribonucleotide(_)).toList
 }
