@@ -30,7 +30,7 @@ object Deoxyribonucleosides {
 
   val list: List[Deoxyribonucleosides] = List(M, R, W, S, Y, K, V, H, D, B, N, X)
 
-  private val map = list.map(uncertainty => uncertainty.symbol -> uncertainty).toMap
+  private val map = list.map(nucleobase => nucleobase.symbol -> nucleobase).toMap
 
   def apply(symbol: Char): Deoxyribonucleosides = map(symbol)
 
