@@ -9,14 +9,14 @@ case class Codon(
 
 object RNACodon {
   def apply(sequence: String) = Codon(
-    first = Ribonucleotide(sequence.charAt(0)),
-    second = Ribonucleotide(sequence.charAt(1)),
-    third = Ribonucleotide(sequence.charAt(2)))
+    first = Ribonucleoside(sequence.charAt(0)),
+    second = Ribonucleoside(sequence.charAt(1)),
+    third = Ribonucleoside(sequence.charAt(2)))
 }
 
 object DNACodon {
   def apply(sequence: String) = Codon(
-    first = Deoxyribonucleotide(sequence.charAt(0)),
-    second = Deoxyribonucleotide(sequence.charAt(1)),
-    third = Deoxyribonucleotide(sequence.charAt(2)))
+    first = Deoxyribonucleoside(sequence.charAt(0)),
+    second = Deoxyribonucleoside(sequence.charAt(1)),
+    third = Deoxyribonucleoside(sequence.charAt(2)))
 }

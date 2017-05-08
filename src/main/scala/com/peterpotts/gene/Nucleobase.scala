@@ -1,70 +1,142 @@
 package com.peterpotts.gene
 
 /**
-  * A nucleotide consists of a five-carbon sugar ring attached to a nitrogen-containing base and a phosphate group.
-  * In DNA, the sugar is deoxyribose, in RNA it is ribose. Ribose has an additional hydroxyl group attached to the
-  * five-carbon sugar ring. It is the phosphate group that is involved in linking the building blocks together by
-  * a phosphodiester linkage in DNA. The nitrogen-containing base is also known as the nucleobase.
+  * A nitrogen-containing base with an identifying character symbol.
   *
-  * Nucleoside = Sugar + Nucleobase
-  * Nucleotide = Sugar + Nucleobase + Phosphate
+  * @author Peter Potts
   */
-sealed abstract class Nucleobase(val symbol: Char)
+sealed trait Nucleobase {
+  val symbol: Char
+}
+
+/**
+  * A nucleoside consists of a five-carbon sugar ring attached to a nitrogen-containing base.
+  */
+sealed trait Nucleoside extends Nucleobase {
+  self: PentoseSugar =>
+}
+
+sealed trait Deoxyribonucleoside extends Nucleoside with Deoxyribose
+
+sealed trait Ribonucleoside extends Nucleoside with Ribose
+
+/**
+  * A nucleotide consists of a five-carbon sugar ring attached to a nitrogen-containing base and a phosphate group.
+  */
+sealed trait Nucleotide extends Nucleoside with Phosphate {
+  self: PentoseSugar =>
+}
+
+/**
+  * Deoxyribonucleic acid (DNA) molecules are used to store genetic instructions that are transmitted from generation to
+  * generation. A DNA molecules is a linear polymer of deoxyribonucleotides.
+  */
+sealed trait Deoxyribonucleotide extends Nucleotide with Deoxyribonucleoside
+
+/**
+  * Ribonucleic acid (RNA) molecules are much smaller that DNA molecules. An RNA molecules is a linear polymer of
+  * ribonucleotides.
+  */
+sealed trait Ribonucleotide extends Nucleotide with Ribonucleoside
 
 /**
   * A purine is a nucleobase with a 6-member and a 5-member nitrogen-containing ring.
   */
-sealed abstract class Purine(symbol: Char) extends Nucleobase(symbol)
+sealed trait Purine extends Nucleobase
 
 /**
   * A pyrimidine is a nucleobase with only one 6-membered nitrogen-containing ring.
   */
-sealed abstract class Pyrimidine(symbol: Char) extends Nucleobase(symbol)
-
-sealed trait Sugar
+sealed trait Pyrimidine extends Nucleobase
 
 /**
-  * Five-carbon sugar ring without hydroxyl group.
+  * Adenine is a purine nucleobase found in DNA and RNA.
   */
-sealed trait Deoxyribose extends Sugar
+case object Adenine extends Adenine
+
+sealed trait Adenine extends Purine {
+  val symbol = 'A'
+}
 
 /**
-  * Five-carbon sugar ring with hydroxyl group.
+  * Adenosine is a purine nucleoside comprising adenine attached to a ribose.
   */
-sealed trait Ribose extends Sugar
+case object Adenosine extends Ribonucleoside with Adenine
 
 /**
-  * Adenine forms the nucleoside adenosine with ribose and deoxyadenosine with deoxyribose.
+  * Deoxyadenosine is a purine nucleoside comprising adenine attached to a deoxyribose.
   */
-case object Adenine extends Purine('A') with Deoxyribose with Ribose
+case object Deoxyadenosine extends Deoxyribonucleoside with Adenine
 
 /**
-  * The nucleoside of cytosine is cytidine.
+  * Cytosine is a pyrimidine nucleobase found in DNA and RNA.
   */
-case object Cytosine extends Pyrimidine('C') with Deoxyribose with Ribose
+case object Cytosine
+
+sealed trait Cytosine extends Pyrimidine {
+  val symbol = 'C'
+}
 
 /**
-  * The nucleoside of guanine is guanosine.
+  * Cytidine is a pyrimidine nucleoside comprising cytosine attached to a ribose.
   */
-case object Guanine extends Purine('G') with Deoxyribose with Ribose
+case object Cytidine extends Ribonucleoside with Cytosine
 
 /**
-  * Thymine binds with a deoxyribose sugar to form the nucleoside deoxythymidine.
+  * Deoxycytidine is a pyrimidine nucleoside comprising cytosine attached to a deoxyribose.
   */
-case object Thymine extends Pyrimidine('T') with Deoxyribose
+case object Deoxycytidine extends Deoxyribonucleoside with Cytosine
 
 /**
-  * Uracil binds with a ribose sugar to form the ribonucleoside uridine.
+  * Guanine is a purine nucleobase found in DNA and RNA.
   */
-case object Uracil extends Pyrimidine('U') with Ribose
+case object Guanine extends Guanine
+
+sealed trait Guanine extends Purine {
+  val symbol = 'G'
+}
 
 /**
-  * Ribonucleic acid (RNA) molecules are much smaller that DNA molecules. An RNA molecules is a linear polymer of 4
-  * different ribonucleotide building blocks.
+  * Guanosine is a purine nucleoside comprising guanine attached to a ribose.
   */
-object Ribonucleotide {
-  val list: List[Ribonucleoside] = List(Adenine, Cytosine, Guanine, Uracil)
-  private val map = list.map(nucleotide => nucleotide.symbol -> nucleotide).toMap
+case object Guanosine extends Ribonucleoside with Guanine
+
+/**
+  * Deoxyguanosine is a purine nucleoside comprising guanine attached to a deoxyribose.
+  */
+case object Deoxyguanosine extends Deoxyribonucleoside with Guanine
+
+/**
+  * Thymine is a pyrimidine nucleobase found in DNA.
+  */
+case object Thymine extends Thymine
+
+sealed trait Thymine extends Pyrimidine {
+  val symbol = 'T'
+}
+
+/**
+  * Deoxythymidine is a pyrimidine nucleoside comprising guanine attached to a deoxyribose.
+  */
+case object Deoxythymidine extends Deoxyribonucleoside with Thymine
+
+/**
+  * Uracil is a pyrimidine nucleobase found in RNA.
+  */
+case object Uracil extends Uracil
+
+sealed trait Uracil extends Pyrimidine {
+  val symbol = 'U'
+}
+
+/**
+  * Uridine is a pyrimidine nucleoside comprising uracil attached to a ribose.
+  */
+case object Uridine extends Ribonucleoside with Uracil
+
+object Ribonucleoside {
+  val list: List[Ribonucleoside] = List(Adenosine, Cytidine, Guanosine, Uridine)
+  private val map = list.map(nucleobase => nucleobase.symbol -> nucleobase).toMap
 
   def apply(symbol: Char): Ribonucleoside = map(symbol)
 
@@ -72,16 +144,12 @@ object Ribonucleotide {
 }
 
 object Ribonucleotides {
-  def apply(symbols: String): List[Ribonucleoside] = symbols.map(Ribonucleotide(_)).toList
+  def apply(symbols: String): List[Ribonucleoside] = symbols.map(Ribonucleoside(_)).toList
 }
 
-/**
-  * Deoxyribonucleic acid (DNA) molecules are used to store genetic instructions that are transmitted from generation to
-  * generation. A DNA molecules is a linear polymer of 4 different deoxyribonucleotide building blocks.
-  */
-object Deoxyribonucleotide {
-  val list: List[Deoxyribonucleoside] = List(Adenine, Cytosine, Guanine, Thymine)
-  private val map = list.map(nucleotide => nucleotide.symbol -> nucleotide).toMap
+object Deoxyribonucleoside {
+  val list: List[Deoxyribonucleoside] = List(Deoxyadenosine, Deoxycytidine, Deoxyguanosine, Deoxythymidine)
+  private val map = list.map(nucleobase => nucleobase.symbol -> nucleobase).toMap
 
   def apply(symbol: Char): Deoxyribonucleoside = map(symbol)
 
